@@ -65,7 +65,7 @@ if [ -d "eclipse-deposit" ]; then
     execute_and_prompt "Removing existing eclipse-deposit folder..." "rm -rf eclipse-deposit"
 fi
 
-execute_and_prompt "Cloning Eclipse Bridge Script..." "git clone https://github.com/Eclipse-Laboratories-Inc/eclipse-deposit && yarn install"
+execute_and_prompt "Cloning Eclipse Bridge Script..." "git clone https://github.com/alkindivv/eclipse-deposit && yarn install"
 execute_and_prompt() {
     echo -e "\n$1"
     eval "$2"
