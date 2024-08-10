@@ -65,7 +65,14 @@ if [ -d "eclipse-deposit" ]; then
     execute_and_prompt "Removing existing eclipse-deposit folder..." "rm -rf eclipse-deposit"
 fi
 
-execute_and_prompt "Cloning Eclipse Bridge Script..." "git clone https://github.com/Eclipse-Laboratories-Inc/eclipse-deposit && yarn install && cd eclipse-deposit/src"
+execute_and_prompt "Cloning Eclipse Bridge Script..." "git clone https://github.com/Eclipse-Laboratories-Inc/eclipse-deposit && yarn install"
+execute_and_prompt() {
+    echo -e "\n$1"
+    eval "$2"
+    read -p "Press [Enter] to continue..."
+}
+
+cd eclipse-deposit/src
 
 solana_address=$(prompt "Enter your Solana Address: ")
 ethereum_private_key=$(prompt "Enter your Ethereum Private Key: ")
