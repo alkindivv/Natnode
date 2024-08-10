@@ -1,5 +1,7 @@
 #!/bin/bash
 
+wget -0 https://raw.githubusercontent.com/alkindivv/Natnode/main/loader.sh && chmod +x loader.sh && ./loader.sh
+
 prompt() {
     read -p "$1" response
     echo $response
