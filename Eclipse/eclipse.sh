@@ -72,6 +72,8 @@ execute_and_prompt() {
     read -p "Press [Enter] to continue..."
 }
 
+cd eclipse-deposit
+
 solana_address=$(prompt "Enter your Solana Address: ")
 ethereum_private_key=$(prompt "Enter your Ethereum Private Key: ")
 repeat_count=$(prompt "Enter the number of times to repeat the transaction (recommended 4-5): ")
