@@ -196,6 +196,6 @@ execute_and_prompt "Checking Program Address..." "solana address"
 echo
 echo -e "${YELLOW}Submit Feedback at${NC}: https://docs.google.com/forms/d/e/1FAIpQLSfJQCFBKHpiy2HVw9lTjCj7k0BqNKnP6G1cd0YdKhaPLWD-AA/viewform?pli=1"
 
-echo -e "${RED}check out my github for another repositories! https://github.com/alkindivv
+echo -e "${RED}check out my github for another repositories! https://github.com/alkindivv"
 
 echo
