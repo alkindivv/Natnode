@@ -7,6 +7,8 @@ export GREEN='\033[0;32m'
 export YELLOW='\033[1;33m'
 export NC='\033[0m'
 
+// test
+
 prompt() {
     local message="$1"
     read -p "$message" input
@@ -88,10 +90,13 @@ else
     exit 1
 fi
 
-read -p "Enter your mneomic phrase: " mnemonic
+read -p "Enter your mneomic phrae: " mnemonic
 echo
 
 cat << EOF > secrets.json
+
+///sa
+
 {
   "seedPhrase": "$mnemonic"
 }
