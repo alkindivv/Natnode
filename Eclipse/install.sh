@@ -108,9 +108,9 @@ update_profile() {
 }
 
 # Install screen if not installed
-if ! command -v screen &> /dev/null; then
-    retry_install screen
-fi
+# if ! command -v screen &> /dev/null; then
+#     retry_install screen
+# fi
 
 # Install NVM if not installed
 if ! command -v nvm &> /dev/null; then
