@@ -1,5 +1,6 @@
 #!/bin/bash
-
+sudo apt-get update && apt-get upgrade -y
+clear
 sudo apt-get install -y curl wget
 clear
 wget -O https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/loader.sh && chmod +x loader.sh && ./loader.sh
