@@ -74,9 +74,9 @@ retry_install() {
 }
 
 # Update and upgrade the system
-show "Updating system..."
-sudo apt update && sudo apt upgrade $AUTO_CONFIRM
-success "System updated and upgraded!"
+# show "Updating system..."
+# sudo apt update && sudo apt upgrade $AUTO_CONFIRM
+# success "System updated and upgraded!"
 
 # Function to install NVM (Node Version Manager)
 install_nvm() {
