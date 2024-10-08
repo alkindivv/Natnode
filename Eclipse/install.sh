@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget -0 https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/loader.sh && chmod +x loader.sh && ./loader.sh
+wget -O https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/loader.sh && chmod +x loader.sh && ./loader.sh
 curl -s https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/logo.sh
 sleep 4
 
