@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get install -y curl wget
+clear
 wget -O https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/loader.sh && chmod +x loader.sh && ./loader.sh
 curl -s https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/logo.sh
 sleep 4
@@ -96,16 +98,16 @@ install_nvm() {
 }
 
 # Function to update .bashrc profile for future sessions
-update_profile() {
-    show "Updating profile for future sessions..."
-    {
-        echo "# NVM configuration"
-        echo "export NVM_DIR=\"$HOME/.nvm\""
-        echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\""
-        echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
-    } >> ~/.bashrc
-    success "Profile updated!"
-}
+# update_profile() {
+#     show "Updating profile for future sessions..."
+#     {
+#         echo "# NVM configuration"
+#         echo "export NVM_DIR=\"$HOME/.nvm\""
+#         echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\""
+#         echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
+#     } >> ~/.bashrc
+#     success "Profile updated!"
+# }
 
 # Install screen if not installed
 # if ! command -v screen &> /dev/null; then
@@ -158,5 +160,38 @@ else
 fi
 
 # Final message
+
+if ! command -v docker-compose &> /dev/null; then
+    show "Installing Docker Compose..."
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    success "Docker Compose installed successfully!"
+else
+    warning "Docker Compose is already installed, skipping installation."
+fi
+
+# Tambahkan verifikasi instalasi
+
+echo "Verifying installations:"
+echo "NVM version: $(nvm --version)"
+echo "Node.js version: $(node --version)"
+echo "npm version: $(npm --version)"
+echo "Docker version: $(docker --version)"
+echo "Docker Compose version: $(docker-compose --version)"
 show "All essential packages have been installed successfully!"
 show "Visit my GitHub for more tutorials: https://github.com/alkindivv/Natnode."
+
+# install_if_not_exists() {
+#     if ! command -v $1 &> /dev/null; then
+#         show "Installing $1..."
+#         $2
+#         success "$1 installed successfully!"
+#     else
+#         warning "$1 is already installed, skipping installation."
+#     fi
+# }
+
+# # Penggunaan:
+# install_if_not_exists "nvm" install_nvm
+# install_if_not_exists "docker" install_docker
+# install_if_not_exists "docker-compose" install_docker_compose
