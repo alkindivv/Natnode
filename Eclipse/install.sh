@@ -83,21 +83,21 @@ retry_install() {
 # success "System updated and upgraded!"
 
 # Function to install NVM (Node Version Manager)
-install_nvm() {
-    show "Installing NVM..."
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-    if [ $? -ne 0 ]; then
-        error "Failed to install NVM"
-        exit 1
-    else
-        success "NVM installed successfully!"
+check_node() {
+    if ! command -v node &> /dev/null; then
+        return 1
     fi
+    return 0
 }
+
+if ! check_node; then
+    echo "Node.js not found. Installing Node.js..."
+    apt update && apt upgrade -y
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install 22 && nvm alias default 22 && nvm use default
+fi
 
 # Function to update .bashrc profile for future sessions
 # update_profile() {
@@ -129,19 +129,19 @@ install_nvm() {
 # fi
 
 # Install Node.js using NVM
-show "Installing Node.js version 22..."
-nvm install 22 && nvm alias default 22 && nvm use default
-if [ $? -ne 0 ]; then
-    error "Failed to install Node.js"
-    exit 1
-else
-    success "Node.js v22 installed and set as default!"
-fi
+# show "Installing Node.js version 22..."
+# nvm install 22 && nvm alias default 22 && nvm use default
+# if [ $? -ne 0 ]; then
+#     error "Failed to install Node.js"
+#     exit 1
+# else
+#     success "Node.js v22 installed and set as default!"
+# fi
 
-# Update profile if NVM_DIR is not present in .bashrc
-if ! grep -q "NVM_DIR" ~/.bashrc; then
-    update_profile
-fi
+# # Update profile if NVM_DIR is not present in .bashrc
+# if ! grep -q "NVM_DIR" ~/.bashrc; then
+#     update_profile
+# fi
 
 # Install Docker if not installed
 if ! command -v docker &> /dev/null; then
