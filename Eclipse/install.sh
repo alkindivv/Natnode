@@ -99,50 +99,6 @@ if ! check_node; then
     nvm install 22 && nvm alias default 22 && nvm use default
 fi
 
-# Function to update .bashrc profile for future sessions
-# update_profile() {
-#     show "Updating profile for future sessions..."
-#     {
-#         echo "# NVM configuration"
-#         echo "export NVM_DIR=\"$HOME/.nvm\""
-#         echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\""
-#         echo "[ -s \"$NVM_DIR/bash_completion\" ] && \. \"$NVM_DIR/bash_completion\""
-#     } >> ~/.bashrc
-#     success "Profile updated!"
-# }
-
-# Install screen if not installed
-# if ! command -v screen &> /dev/null; then
-#     retry_install screen
-# fi
-
-# Install NVM if not installed
-# if ! command -v nvm &> /dev/null; then
-#     install_nvm
-# fi
-
-# # Install npm if not installed
-# if ! command -v npm &> /dev/null; then
-#     retry_install npm
-# else
-#     warning "npm is already installed. Skipping installation."
-# fi
-
-# Install Node.js using NVM
-# show "Installing Node.js version 22..."
-# nvm install 22 && nvm alias default 22 && nvm use default
-# if [ $? -ne 0 ]; then
-#     error "Failed to install Node.js"
-#     exit 1
-# else
-#     success "Node.js v22 installed and set as default!"
-# fi
-
-# # Update profile if NVM_DIR is not present in .bashrc
-# if ! grep -q "NVM_DIR" ~/.bashrc; then
-#     update_profile
-# fi
-
 # Install Docker if not installed
 if ! command -v docker &> /dev/null; then
     show "Docker is not installed. Installing Docker version 27.1.1, build 63125853e3..."
@@ -164,10 +120,18 @@ fi
 # Final message
 
 if ! command -v docker-compose &> /dev/null; then
-    show "Installing Docker Compose..."
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    show "Installing the latest version of Docker Compose..."
+
+    # Fetch the latest version of Docker Compose
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)
+
+    # Download the latest version for Ubuntu x86_64
+    sudo curl -L "https://github.com/docker/compose/releases/download/${LATEST_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+    # Apply execute permissions
     sudo chmod +x /usr/local/bin/docker-compose
-    success "Docker Compose installed successfully!"
+
+    success "Docker Compose version ${LATEST_VERSION} installed successfully!"
 else
     warning "Docker Compose is already installed, skipping installation."
 fi
@@ -183,17 +147,4 @@ echo "Docker Compose version: $(docker-compose --version)"
 show "All essential packages have been installed successfully!"
 show "Visit my GitHub for more tutorials: https://github.com/alkindivv/Natnode."
 
-# install_if_not_exists() {
-#     if ! command -v $1 &> /dev/null; then
-#         show "Installing $1..."
-#         $2
-#         success "$1 installed successfully!"
-#     else
-#         warning "$1 is already installed, skipping installation."
-#     fi
-# }
 
-# # Penggunaan:
-# install_if_not_exists "nvm" install_nvm
-# install_if_not_exists "docker" install_docker
-# install_if_not_exists "docker-compose" install_docker_compose
