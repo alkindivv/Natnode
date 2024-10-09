@@ -1,7 +1,8 @@
 #!/bin/bash
+
 sudo apt-get update && apt-get upgrade -y
 clear
-sudo apt-get install -y curl wget
+sudo apt-get install -y curl wget screen jq  
 clear
 wget -O https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/loader.sh && chmod +x loader.sh && ./loader.sh
 curl -s https://raw.githubusercontent.com/alkindivv/Natnode/refs/heads/main/logo.sh
@@ -116,16 +117,16 @@ install_nvm() {
 # fi
 
 # Install NVM if not installed
-if ! command -v nvm &> /dev/null; then
-    install_nvm
-fi
+# if ! command -v nvm &> /dev/null; then
+#     install_nvm
+# fi
 
-# Install npm if not installed
-if ! command -v npm &> /dev/null; then
-    retry_install npm
-else
-    warning "npm is already installed. Skipping installation."
-fi
+# # Install npm if not installed
+# if ! command -v npm &> /dev/null; then
+#     retry_install npm
+# else
+#     warning "npm is already installed. Skipping installation."
+# fi
 
 # Install Node.js using NVM
 show "Installing Node.js version 22..."
